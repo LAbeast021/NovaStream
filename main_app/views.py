@@ -15,7 +15,7 @@ from django.utils import timezone
 
 # Make sure to add your bucket name below
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com'
-BUCKET = ''
+BUCKET = 'catcollector-kh'
 
 # Create your views here.
 def signup(request):
@@ -34,7 +34,8 @@ def signup(request):
 
 
 def home_index(request):
-    return render(request, 'home.html')
+    posts = Post.objects.all().order_by('-datePublished')[:5]
+    return render(request, 'home.html',{'posts':posts})
 
 def about(request):
     return render(request, 'about.html')
